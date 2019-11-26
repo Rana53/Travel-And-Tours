@@ -1,13 +1,12 @@
 const express = require('express');
-
+const bodyParser = require('body-parser');
 const app = express();
 
-app.use((req, res, next) => {
-    console.log('First middleware');
-});
+const userRouter = require('./routes/user');
 
-app.use((req, res, next) => {
-    res.send('Hello from express');
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use('/api/user', userRouter);
 
 module.exports = app;
