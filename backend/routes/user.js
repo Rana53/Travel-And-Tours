@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
 const User = require('../models/user');
 const multer = require('multer');
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
       cb(null,'./backend/images/users')

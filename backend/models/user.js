@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  name: {
+    first: String, 
+    last: String
+  },
   imagePath: {
     type: String,
     required: false,
@@ -21,7 +25,9 @@ const userSchema = new mongoose.Schema({
       type: Boolean,
       required: false,
       default: false
-  }
+  },
+  contractNumber: {type: String},
+  address: {type: String}
 });
 
 userSchema.plugin(uniqueValidator);
