@@ -21,12 +21,12 @@ const userSchema = new mongoose.Schema({
     required: false,
     default: null
   },
-  isAdmin: {
+  isAdmin: { //you can't shown this field to user regestration form
       type: Boolean,
       required: false,
       default: false
   },
-  contractNumber: {type: String},
+  contactNumber: {type: String},
   address: {type: String}
 });
 

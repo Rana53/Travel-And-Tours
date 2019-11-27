@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const mongoose = require('mongoose');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -12,7 +13,7 @@ const storage = multer.diskStorage({
   }
 });
 const fileFilter = (req, file, cb) => {
-if (file.mimetpe === 'image/jpeg' || file.mimetype === 'image/png'){
+if (file.mimetpe === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetpe === 'image/jpg'){
     cb(null, true);
   } else {
     cb(null, false);
@@ -27,13 +28,33 @@ const upload = multer({
 });
 
 router.post('/signup', upload.single('image'), (req, res, next) => {
-    console.log(req.file);
-    const user = new User({
-        email: req.body.email,
-        password: req.body.password,
-        imagePath : (typeof req.file == "undefined") ? null : req.file.path
+  console.log(req.file);
+  const user = new User({
+    _id: mongoose.Types.ObjectId(),
+    email: req.body.email,
+    password: req.body.password,
+    name: {
+      first: req.body.firstName,
+      last: req.body.lastName
+    },
+    imagePath : (typeof req.file == "undefined") ? null : req.file.path,
+    //imagePath: req.file.path,
+    contactNumber: req.body.number,
+    address: req.body.address
+  });
+  user.save()
+  .then((result) => {
+      res.status(200).json({
+        message: 'user created successfully',
+        user: result
+      })
+  })
+  .catch((err) => {
+    res.status(500).json({
+      message: err
     });
-    res.status(200).json(user);
+  });
+  
 });
 
 module.exports = router;
