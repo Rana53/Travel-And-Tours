@@ -16,7 +16,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true,useCreat
   });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use('/users',express.static("backend/images/users"));
 
 app.use('/api/user', userRouter);
 
