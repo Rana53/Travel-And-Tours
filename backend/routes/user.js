@@ -100,7 +100,7 @@ router.post('/login', (req, res, err) => {
           })
           .catch(err => {
             return res.status(505).json({
-                message: err +"XX"
+                message: err
               }); 
           });
       }
