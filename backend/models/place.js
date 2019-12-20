@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const userSchema = new mongoose.Schema({
   _id: mongoose.Types.ObjectId,
   name: {
@@ -27,7 +26,7 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  user: {
+  creator : { // which user add this places
     type: String
   }
 });

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const userRouter = require('./routes/user');
+const placeRouter = require('./routes/place');
 
 const mongoose = require('mongoose');
 const url = 'mongodb+srv://tyro-travel-and-tour:'+
@@ -17,7 +18,9 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true,useCreat
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/users',express.static("backend/images/users"));
+app.use('/places',express.static("backend/images/places"));
 
 app.use('/api/user', userRouter);
+app.use('/api/place', placeRouter);
 
 module.exports = app;
