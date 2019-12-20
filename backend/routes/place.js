@@ -37,7 +37,7 @@ const storage = multer.diskStorage({
   });
 
   router.post('', upload.array('photos',10),(req, res, next) => {
-    console.log('Work');
+    
     const place = new Place({
       _id: mongoose.Types.ObjectId(),
       name: req.body.name,
@@ -58,9 +58,24 @@ const storage = multer.diskStorage({
         place: createdPlace
       });
     });
-    
   });                                                       
   
+  router.patch("/:placeId", (req, res, next) => {
+    const id = req.params.placeId;
+    const updateOps = {};
+    for(const ops of req.body){
+      updateOps[ops.propName] = ops.value
+    }
+    Product.update({_id: id},{ $set: updateOps})
+    .exec()
+    .then(result=>{
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json({ error: err});
+    });
+  });
+
   router.delete("/:id", (req, res, next) => {
     Place.findByIdAndDelete({_id: req.params.id})
       .then(place => {
