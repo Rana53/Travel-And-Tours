@@ -77,7 +77,7 @@ router.post('/signup', upload.single('image'), (req, res, next) => {
 });
 
 router.post('/login', (req, res, err) => {
-    User.findOne({ email: req.body.email})
+  User.findOne({ email: req.body.email})
     .then(user => {
       //console.log(user);
       if(!user){
@@ -101,10 +101,27 @@ router.post('/login', (req, res, err) => {
           .catch(err => {
             return res.status(505).json({
                 message: err
-              }); 
+            }); 
           });
       }
     })
+});
+
+router.get('', (req, res, next) => {
+  User.find().select('name imagePath')
+    .then( users => {
+      res.status(201).json({
+        message: "All User list",
+        users: users
+      })
+    })
+});
+router.delete('/:userId', (req, res, next) => {
+  User.findByIdAndDelete({_id: req.params.id})
+  .then(place => {
+    console.log("successfully deleted user");
+    res.status(200).json(place); 
+  });
 });
 module.exports = router;
 

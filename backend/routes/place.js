@@ -27,60 +27,61 @@ const storage = multer.diskStorage({
     },
     fileFilter: fileFilter
   });
-  router.get("", (req, res, next) => {
-      Place.find().then(places => {
-        res.status(201).json({
-          message: 'All Places Document',
-          places: places
-        });
-      })
-  });
 
-  router.post('', upload.array('photos',10),(req, res, next) => {
-    
-    const place = new Place({
-      _id: mongoose.Types.ObjectId(),
-      name: req.body.name,
-      description: req.body.description,
-      address: {
-        country: req.body.country,
-        stateOrDivision: req.body.stateOrDivision
-      },
-      rating: req.body.rating,
-      creator: 'thisPlaceReplaceWithLogInId'
-    });
-    req.files.forEach(e => {
-      place.imagePath.push(e.path);
-    });
-    place.save().then(createdPlace => {
+router.get("", (req, res, next) => {
+    Place.find().then(places => {
       res.status(201).json({
-        message: 'Place added added successfully',
-        place: createdPlace
+        message: 'All Places Document',
+        places: places
       });
-    });
-  });                                                       
-  
-  router.patch("/:placeId", (req, res, next) => {
-    const id = req.params.placeId;
-    const updateOps = {};
-    for(const ops of req.body){
-      updateOps[ops.propName] = ops.value
-    }
-    Product.update({_id: id},{ $set: updateOps})
-    .exec()
-    .then(result=>{
-      res.status(200).json(result);
     })
-    .catch(err => {
-      res.status(500).json({ error: err});
+});
+
+router.post('', upload.array('photos',10),(req, res, next) => {
+  
+  const place = new Place({
+    _id: mongoose.Types.ObjectId(),
+    name: req.body.name,
+    description: req.body.description,
+    address: {
+      country: req.body.country,
+      stateOrDivision: req.body.stateOrDivision
+    },
+    rating: req.body.rating,
+    creator: 'thisPlaceReplaceWithLogInId'
+  });
+  req.files.forEach(e => {
+    place.imagePath.push(e.path);
+  });
+  place.save().then(createdPlace => {
+    res.status(201).json({
+      message: 'Place added added successfully',
+      place: createdPlace
     });
   });
-
-  router.delete("/:id", (req, res, next) => {
-    Place.findByIdAndDelete({_id: req.params.id})
-      .then(place => {
-        console.log("successfully deleted");
-        res.status(200).json(place); 
-      });
+});                                                       
+      
+router.patch("/:placeId", (req, res, next) => {
+  const id = req.params.placeId;
+  const updateOps = {};
+  for(const ops of req.body){
+    updateOps[ops.propName] = ops.value
+  }
+  Product.update({_id: id},{ $set: updateOps})
+  .exec()
+  .then(result=>{
+    res.status(200).json(result);
+  })
+  .catch(err => {
+    res.status(500).json({ error: err});
   });
-  module.exports = router;
+});
+
+router.delete("/:id", (req, res, next) => {
+  Place.findByIdAndDelete({_id: req.params.id})
+    .then(place => {
+      console.log("successfully deleted");
+      res.status(200).json(place); 
+    });
+});
+module.exports = router;
