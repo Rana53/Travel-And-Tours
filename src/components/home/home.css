@@ -1,5 +1,6 @@
 .container1{
     background-image: url("../../upload/image/home-bg1.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 200px;
+    
 }
