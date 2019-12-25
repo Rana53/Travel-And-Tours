@@ -6,12 +6,14 @@ const Header = () => {
   return (
     <div className="container">
       <nav>
+      <p>Explore your life with travelling...</p>
         <img 
           src={logo}
           style={{
-            width:120,
+            width:100,
             height: 100,
-            borderRadius: 10
+            borderRadius: 10,
+            paddingBottom: 30
           }}
         />
         <ul>
