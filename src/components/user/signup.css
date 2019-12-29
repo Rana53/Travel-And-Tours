@@ -1,0 +1,11 @@
+.container-fluid{
+  color: rgb(16, 168, 173);
+  line-height: 1.42857143;
+  font-family: 'Roboto', sans-serif
+}
+.signup-form{
+  padding-left: 300px;
+  box-sizing: border-box;
+  width: 400px;
+  height: auto;
+}

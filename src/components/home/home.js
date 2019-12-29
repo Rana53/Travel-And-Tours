@@ -1,22 +1,21 @@
 import React from 'react';
 import './home.css';
-import ImageGallery from './imageGallery';
-
 import Header from '../header/header';
+import ImageGallery from './imageGallery';
 
 const Home = () => {
   
   return (
-    <div className="container">
       <div>
-        <Header/>
-        <ImageGallery/>   
+        <div style={{paddingTop: "10px"}}> <ImageGallery/> </div>
+        <hr/>
+        <p>tfadsffffffffffffffffffffffffffffffffffffffffffffffffffffffffasdkflaskdfxlaskdlfkaslkdflsdklfffffffffffffffffffffffffffffffffffffhis askdf</p>
       </div>
-      <div className="container">
-        
-      </div>
-    </div>
   )
 }
 
 export default Home;
+
+
+
+// card image https://www.youtube.com/watch?v=gW2pFkhm2vM

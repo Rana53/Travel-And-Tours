@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema({
       default: false
   },
   contactNumber: {type: String},
-  address: {type: String}
+  address: { type: String},
+  country: {type: String}
 });
 
 userSchema.plugin(uniqueValidator);

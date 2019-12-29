@@ -1,52 +1,47 @@
-import * as React from "react";
+import React from "react";
 import { Gallery, GalleryImage } from "react-gesture-gallery";
- 
-const ImageGallery= () => {
+
+const images = [
+  "https://images.unsplash.com/photo-1559666126-84f389727b9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1356&q=80",
+  "https://images.unsplash.com/photo-1557389352-e721da78ad9f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1553969420-fb915228af51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80",
+  "https://images.unsplash.com/photo-1550596334-7bb40a71b6bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+  "https://images.unsplash.com/photo-1550640964-4775934de4af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+];
+
+function ImageGallery() {
   const [index, setIndex] = React.useState(0);
- 
-  const images = [
-    {
-      src:
-        "https://images.unsplash.com/photo-1557958114-3d2440207108?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1557939403-1760a0e47505?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1931&q=80"
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1558029062-a37889b87526?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=975&q=80"
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1558088458-b65180740294?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1579&q=80"
-    },
-    {
-      src:
-        "https://images.unsplash.com/photo-1558039719-79cb7b60d279?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-    }
-  ];
- 
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      if (index === 4) {
+        setIndex(0);
+      } else {
+        setIndex(prev => prev + 1);
+      }
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [index]);
+
   return (
-    <div 
-      style={{ 
-        background: "black",
-        width: "100%", 
-        height: "400px",
-        backgroundColor: "white"
-    }}
-    >
+    <div className="container">
       <Gallery
-        index={index}
-        onRequestChange={i => {
-          setIndex(i);
-        }}
-      >
-        {images.map(img => (
-          <GalleryImage objectFit="contain" key={img.src} src={img.src} />
-        ))}
-      </Gallery>
+      style={{
+        height: "400px",
+        width: "100"
+      }}
+      index={index}
+      onRequestChange={i => {
+        setIndex(i);
+      }}
+    >
+      {images.map(image => (
+        <GalleryImage objectFit="contain" key={image} src={image} />
+      ))}
+    </Gallery>
     </div>
+    
   );
 }
+
 export default ImageGallery;
