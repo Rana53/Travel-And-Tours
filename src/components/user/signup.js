@@ -19,7 +19,7 @@ class Signup extends Component{
   }
   onSubmitForm = (event) => {
     event.preventDefault();
-    const form = {
+    const formData = {
       name: {
         first: this.firstName.value,
         last: this.lastName.value
@@ -28,16 +28,17 @@ class Signup extends Component{
       password: this.email.value,
       contactNumber: this.contactNumber.value,
       address: this.address.value,
-      country: this.country.value
+      country: this.country.value,
+      image: this.image.files[0]
     }
-    console.log(form);
+    console.log(formData);
   }
   render(){
   return (
     <Fragment>
       <div  style={{height:"50px", backgroundColor: ""}}>
         <div className="container">
-          <h4 style={{color:""}}>User Registration Form</h4>
+          <h4 style={{color:""}}>| User Registration Form</h4>
         </div>
       </div>
 
@@ -106,6 +107,11 @@ class Signup extends Component{
                     </div>
                   </div>
                 </div>
+                <div class="form-group">
+                <input type="file" ref={input => this.image = input}/>
+  
+                </div>
+
                 <div class="form-group">
                     <label class="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
                 </div>
