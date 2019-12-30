@@ -1,6 +1,6 @@
 import React from 'react';
 import './home.css';
-import Header from '../header/header';
+
 import ImageGallery from './imageGallery';
 
 const Home = () => {

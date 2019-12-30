@@ -2,10 +2,10 @@ import React,{ Fragment } from "react";
 
 function Header(){
   return(
-    <div>
+    <Fragment>
       <nav className="navbar  navbar-expand-lg  navbar-light bg-light fixed-top">
         <div className="container">
-            <a className="navbar-brand" href="#">Travel&Tour</a>
+            <a className="navbar-brand" href="/">Travel&Tour</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -15,7 +15,7 @@ function Header(){
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">blog</a>
+                    <a class="nav-link" href="/">blog</a>
                 </li>
                 
                 <li class="nav-item dropdown">
@@ -23,9 +23,9 @@ function Header(){
                     Tour
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Take a Tour</a>
-                    <a class="dropdown-item" href="#">Tour Details</a>
-                    <a class="dropdown-item" href="#">Custom Tour</a>
+                    <a class="dropdown-item" href="/">Take a Tour</a>
+                    <a class="dropdown-item" href="/">Tour Details</a>
+                    <a class="dropdown-item" href="/">Custom Tour</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -60,7 +60,7 @@ function Header(){
                           <button type="submit" class="btn btn-primary btn-block">Login</button>
                       </div>
                       <div class="form-group text-center">
-                          <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
+                          <small><a href="/" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
                       </div>
                   </form>
                 </li>
@@ -69,7 +69,7 @@ function Header(){
         </div> 
       </nav>        
       <br/>
-      </div>
+    </Fragment>
   )     
 }
 export default Header;
