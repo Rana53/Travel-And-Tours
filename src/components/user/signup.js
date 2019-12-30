@@ -38,7 +38,7 @@ class Signup extends Component{
     <Fragment>
       <div  style={{height:"50px", backgroundColor: ""}}>
         <div className="container">
-          <h4 style={{color:""}}>| User Registration Form</h4>
+          <h4 style={{color:""}}>/User Registration Form</h4>
         </div>
       </div>
 

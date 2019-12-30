@@ -15,6 +15,12 @@ function App() {
       <Route path="/" exact component={Home}></Route>
       <Route path='/signup' component={Signup}></Route>
       <Route path='/about' component={About}></Route>
+
+      <div class="container-fluid footer-copyright text-center bg-light"
+        style={{height: "50px", width:"100"}}
+        >© 2020 Copyright:
+        <a href="https://travelandtour.com/"> TravelAndTour.com</a>
+      </div>
     </BrowserRouter>
   );
 }
