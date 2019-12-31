@@ -15,6 +15,19 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true,useCreat
   .catch(() => {
     console.log('Connection failed');
   });
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Request-With, Content-Type, Accept, Authorization,"
+  );
+  res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST,PUT, PATCH, DELETE,HEAD, OPTIONS"
+  );
+  next();
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/users',express.static("backend/images/users"));

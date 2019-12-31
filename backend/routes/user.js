@@ -5,37 +5,37 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+};
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null,'./backend/images/users')
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error('Invalid mime type');
+    if(isValid){
+      error = null
+    }
+    cb(error, "backend/images/users");
   },
   filename: (req, file, cb) => {
-      cb(null, new Date().toISOString() + file.originalname);
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    //console.log(name+'...'+ext);
+    cb(null, name + '-' + Date.now()+'.' + ext);
   }
-});
-const fileFilter = (req, file, cb) => {
-if (file.mimetpe === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetpe === 'image/jpg'){
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-}
-const upload = multer({
-  storage: storage, 
-  limits: {
-    fileSize: 1024 * 1024 * 2
-  },
-  fileFilter: fileFilter
 });
 
-router.post('/signup', upload.single('image'), (req, res, next) => {
-  console.log(req.file);
-  
+router.post('/signup', multer({storage}).single('image'), (req, res, next) => {
+  console.log(req.body.email);
   User.find({ email: req.body.email})
     .then(user => {
       if(user.length > 0){
-        return res.status(500).json({
-          message: "Mail exists"
+        console.log('douplication');
+        return res.status(200).json({
+          message: "Mail exist"
         });
       } else {
         bcrypt.hash(req.body.password, 10)
@@ -50,14 +50,14 @@ router.post('/signup', upload.single('image'), (req, res, next) => {
               },
               imagePath : (typeof req.file == "undefined") ? null : req.file.path,
               //imagePath: req.file.path,
-              contactNumber: req.body.number,
+              contactNumber: req.body.contactNumber,
               address: req.body.address
             });
             user.save()
               .then(user => {
                 res.status(200).json({
                   message: 'User Created',
-                  user: user
+                  user: user 
                 });
               })
               .catch(err => {
@@ -73,7 +73,6 @@ router.post('/signup', upload.single('image'), (req, res, next) => {
         message: err
       });
     });
-  
 });
 
 router.post('/login', (req, res, err) => {
@@ -108,7 +107,7 @@ router.post('/login', (req, res, err) => {
 });
 
 router.get('', (req, res, next) => {
-  User.find().select('name imagePath')
+  User.find().select('name imagePath email')
     .then( users => {
       res.status(201).json({
         message: "All User list",
@@ -117,7 +116,7 @@ router.get('', (req, res, next) => {
     })
 });
 router.delete('/:userId', (req, res, next) => {
-  User.findByIdAndDelete({_id: req.params.id})
+  User.findByIdAndDelete({_id: req.params.userId})
   .then(place => {
     console.log("successfully deleted user");
     res.status(200).json(place); 
