@@ -1,10 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const User = require('../models/user');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
-
+const router = express.Router();
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -75,15 +74,18 @@ router.post('/signup', multer({storage}).single('image'), (req, res, next) => {
     });
 });
 
-router.post('/login', (req, res, err) => {
+router.get('/login', (req, res, err) => {
+  console.log('onLogin');
+  console.log(req.body.email);
   User.findOne({ email: req.body.email})
     .then(user => {
-      //console.log(user);
+      console.log(user)
       if(!user){
-        return res.status(505).json({
+        console.log("use not find");
+        return res.status(200).json({
           message: 'User not found'
         });
-      } else {
+      } else { 
         console.log(user.password);
         bcrypt.compare(req.body.password, user.password)
           .then(match => {
@@ -106,8 +108,17 @@ router.post('/login', (req, res, err) => {
     })
 });
 
+router.get("/check", (req,res, next) =>{
+    console.log(req.body.data);
+    res.status(200).json({
+      message: "check data",
+      data: req.body.data
+    });
+});
 router.get('', (req, res, next) => {
-  User.find().select('name imagePath email')
+  console.log(req.body.email);
+
+  User.find().select('name email password')
     .then( users => {
       res.status(201).json({
         message: "All User list",

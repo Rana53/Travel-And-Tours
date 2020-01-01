@@ -30,8 +30,10 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 app.use('/users',express.static("backend/images/users"));
 app.use('/places',express.static("backend/images/places"));
+
 
 app.use('/api/user', userRouter);
 app.use('/api/place', placeRouter);

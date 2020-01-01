@@ -40,7 +40,7 @@ class Signup extends Component{
     console.log(formData.get('image'));
 
     axios.post(`http://localhost:8000/api/user/signup`,formData)
-      .then(response => {
+      .then(response => { 
         console.log('After request response');
         console.log("done\n" + response.data.message);
         console.log('Data');
