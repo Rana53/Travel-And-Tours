@@ -3,7 +3,9 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
+
 const router = express.Router();
+
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -115,9 +117,8 @@ router.get("/check", (req,res, next) =>{
       data: req.body.data
     });
 });
-router.get('', (req, res, next) => {
-  console.log(req.body.email);
 
+router.get('', (req, res, next) => {
   User.find().select('name email password')
     .then( users => {
       res.status(201).json({
