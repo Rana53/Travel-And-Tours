@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-
 const userRouter = require('./routes/user'); 
 const placeRouter = require('./routes/place');
 
@@ -9,9 +8,10 @@ const mongoose = require('mongoose');
 const url = 'mongodb+srv://tyro-travel-and-tour:'+
               process.env.MONGO_ATLAS_PW +
               '@cluster0-7ciui.mongodb.net/test?retryWrites=true&w=majority';
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use('/users',express.static("backend/images/users"));
 app.use('/places',express.static("backend/images/places"));

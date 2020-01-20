@@ -29,6 +29,8 @@ const storage = multer.diskStorage({
   });
 
 router.get("", (req, res, next) => {
+    console.log('get request');
+    console.log(req.body.data);
     Place.find().then(places => {
       res.status(201).json({
         message: 'All Places Document',
@@ -84,4 +86,5 @@ router.delete("/:id", (req, res, next) => {
       res.status(200).json(place); 
     });
 });
+
 module.exports = router;

@@ -1,10 +1,11 @@
 const express = require('express');
+const path = require('path');
+const router = express.Router();
 const User = require('../models/user');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
-
-const router = express.Router();
+/*
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
@@ -28,8 +29,8 @@ const storage = multer.diskStorage({
     cb(null, name + '-' + Date.now()+'.' + ext);
   }
 });
-
-router.post('/signup', multer({storage}).single('image'), (req, res, next) => {
+*/
+router.post('/signup',/* multer({storage}).single('image'),*/ (req, res, next) => {
   console.log(req.body.email);
   User.find({ email: req.body.email})
     .then(user => {
@@ -76,7 +77,7 @@ router.post('/signup', multer({storage}).single('image'), (req, res, next) => {
     });
 });
 
-router.get('/login', (req, res, err) => {
+router.post('/login', (req, res, err) => {
   console.log('onLogin');
   console.log(req.body.email);
   User.findOne({ email: req.body.email})
@@ -110,15 +111,17 @@ router.get('/login', (req, res, err) => {
     })
 });
 
-router.get("/check", (req,res, next) =>{
-    console.log(req.body.data);
-    res.status(200).json({
-      message: "check data",
-      data: req.body.data
-    });
+router.post("/check",(req,res, next) =>{
+  console.log('post request');    
+  console.log(req.body.data);  
+  res.status(200).json({
+    message: "check data",
+    data: req.body.data
+  });
 });
 
 router.get('', (req, res, next) => {
+  console.log(req.body.data);
   User.find().select('name email password')
     .then( users => {
       res.status(201).json({
@@ -127,6 +130,7 @@ router.get('', (req, res, next) => {
       })
     })
 });
+
 router.delete('/:userId', (req, res, next) => {
   User.findByIdAndDelete({_id: req.params.userId})
   .then(place => {
