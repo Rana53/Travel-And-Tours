@@ -5,7 +5,6 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
-/*
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
@@ -29,8 +28,8 @@ const storage = multer.diskStorage({
     cb(null, name + '-' + Date.now()+'.' + ext);
   }
 });
-*/
-router.post('/signup',/* multer({storage}).single('image'),*/ (req, res, next) => {
+
+router.post('/signup', multer({storage}).single('image'), (req, res, next) => {
   console.log(req.body.email);
   User.find({ email: req.body.email})
     .then(user => {
@@ -77,51 +76,37 @@ router.post('/signup',/* multer({storage}).single('image'),*/ (req, res, next) =
     });
 });
 
-router.post('/login', (req, res, err) => {
+router.post('/login', (req, res, next) => {
   console.log('onLogin');
   console.log(req.body.email);
-  User.findOne({ email: req.body.email})
+  let fetchUser;
+  User.findOne({ email: req.body.email.toString()})
     .then(user => {
-      console.log(user)
       if(!user){
         console.log("use not find");
-        return res.status(200).json({
-          message: 'User not found'
-        });
-      } else { 
-        console.log(user.password);
-        bcrypt.compare(req.body.password, user.password)
-          .then(match => {
-             // console.log(match);
-              if(!match){
-                return res.status(505).json({
-                  message: 'Password not match'
-                });
-              }
-              res.status(200).json({
-                message: 'Successfull login'
-              });
-          })
-          .catch(err => {
-            return res.status(505).json({
-                message: err
-            }); 
-          });
+        throw new Error("User profile not found");
       }
+      fetchUser = user;
+      return bcrypt.compare(req.body.password, user.password);
+    })
+      .then(result =>{
+        if(!result){
+          throw new Error("Password not match with user");
+        }
+        res.status(200).json({
+          message: "Successfull"
+        });
+      })        
+    .catch(err=>{
+      console.log("Error " + err)
+      res.status(505).json({
+        message: err
+      }); 
     })
 });
 
-router.post("/check",(req,res, next) =>{
-  console.log('post request');    
-  console.log(req.body.data);  
-  res.status(200).json({
-    message: "check data",
-    data: req.body.data
-  });
-});
 
 router.get('', (req, res, next) => {
-  console.log(req.body.data);
   User.find().select('name email password')
     .then( users => {
       res.status(201).json({
@@ -139,7 +124,7 @@ router.delete('/:userId', (req, res, next) => {
   });
 });
 module.exports = router;
-
+              
 
 
 /*

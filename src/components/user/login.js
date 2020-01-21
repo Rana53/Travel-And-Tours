@@ -5,7 +5,7 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
-    success: false,
+    success: true,
     error: ''
   }
   onHandleEmailInput = (event) => {
@@ -23,58 +23,76 @@ class Login extends Component {
 
   onLoginSubmit = (event) => {
     event.preventDefault();
+    console.log('submit form');
     const formData = new FormData();
     formData.append('email', this.state.email);
     formData.append('password', this.state.password);
     console.log('response for login');
-    console.log(formData);
-
-    axios.get(`http://localhost:8000/api/user/login`, formData)
+   
+    axios.post("http://localhost:8000/api/user/login", { email: this.state.email, password: this.state.password})
       .then((response) => {
+        this.props.loginInfo();
+        
+        this.setState({
+          success: true
+        });
         console.log(response.data.message);
+      })
+      .catch(error =>{
+        this.setState({
+          success: false
+        });
+        console.log("XXError message " + error);
       });
+      
   }
+  
   render(){
     return (
       <div className="container-fluid">
-        <ul class="dropdown-menu dropdown-menu-right mt-2">
-          <li class="px-3 py-2">
+        <ul className="dropdown-menu dropdown-menu-right mt-2">
+          <li className="px-3 py-2">
             <div style={{paddingBottom:"10px"}}>
-              <a class="btn btn-outline-info btn-sm float-right" href="/signup">Singup</a> <br/>
+              <a className="btn btn-outline-info btn-sm float-right" href="/signup">Singup</a> <br/>
             </div>
-            {/* <p>Welcome to our Site.Please enter your <span class="login-color">Login</span> details to login here. Or <span class="sin-color">Register</span> here.</p> */}
-            <form class="form" role="form" onSubmit={this.onLoginSubmit}>
-              <div class="form-group">
+            
+            <form className="form" role="form" onSubmit={this.onLoginSubmit}>
+              <div className="form-group">
                 <input 
                   id="emailInput" 
                   placeholder="Email" 
-                  class="form-control form-control-sm" 
+                  className="form-control form-control-sm" 
                   type="email" 
                   required
                   value={this.state.email}
                   onChange={this.onHandleEmailInput}  
                 />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <input 
                   id="passwordInput" 
                   placeholder="Password" 
-                  class="form-control form-control-sm" 
+                  className="form-control form-control-sm" 
                   type="password" 
                   required
                   value={this.state.password}
                   onChange={this.onHandlePasswordInput}
                 />
               </div>
-              <div class="form-group">
+              <div>
+                {this.state.success? "":<p style={{color:"red"}}>The email or password not valid</p>}
+              </div>
+              
+            
+              <div className="form-group">
                 <button 
                   type="submit" 
-                  class="btn btn-primary btn-block"
+                  className="btn btn-primary btn-block"
                   >
                   Login
                 </button>
               </div>
-              <div class="form-group text-center">
+              <div className="form-group text-center">
                 <small>
                   <a 
                     href="/" 
