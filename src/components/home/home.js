@@ -65,7 +65,7 @@ class Home extends Component{
   render(){
     return (
       <div className="container">
-        <div className="row">
+        <div className="row"> 
           <div className="col">
             <h1 className="heading">
             <span style={{ color: "#95bd07"}}>Travel &amp; Explore..</span> <br/>

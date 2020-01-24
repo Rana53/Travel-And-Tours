@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class Login extends Component {
-  state = {
-    email: '',
-    password: '',
-    success: true,
-    error: ''
+  constructor(props){
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      success: true,
+      error: ''
+    }
   }
+  
   onHandleEmailInput = (event) => {
     this.setState({
       email: event.target.value
@@ -30,9 +34,8 @@ class Login extends Component {
     console.log('response for login');
    
     axios.post("http://localhost:8000/api/user/login", { email: this.state.email, password: this.state.password})
-      .then((response) => {
+      .then((response)  =>  {
         this.props.loginInfo();
-        
         this.setState({
           success: true
         });
@@ -44,7 +47,6 @@ class Login extends Component {
         });
         console.log("XXError message " + error);
       });
-      
   }
   
   render(){

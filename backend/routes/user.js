@@ -5,6 +5,7 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
@@ -93,8 +94,17 @@ router.post('/login', (req, res, next) => {
         if(!result){
           throw new Error("Password not match with user");
         }
+        const token = jwt.sign(
+          { email: fetchUser.email, userId: fetchUser._id},
+          "secret_key_should_be_long",
+          {
+            expiresIn: "1h"}
+        );
         res.status(200).json({
-          message: "Successfull"
+          message: "Successfull",
+          token: token,
+          expiresIn: 3600,
+          userId: fetchUser._id
         });
       })        
     .catch(err=>{
