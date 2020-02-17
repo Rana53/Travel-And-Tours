@@ -98,10 +98,11 @@ router.post('/login', (req, res, next) => {
           { email: fetchUser.email, userId: fetchUser._id},
           "secret_key_should_be_long",
           {
-            expiresIn: "1h"}
+            expiresIn: "1h"
+          }
         );
-        res.status(200).json({
-          message: "Successfull",
+        res.status(200).json({ 
+          message: "Successfull", 
           token: token,
           expiresIn: 3600,
           userId: fetchUser._id

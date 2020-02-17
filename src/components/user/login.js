@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react';     
+import axios from 'axios'; 
 
-class Login extends Component {
-  constructor(props){
+class Login extends Component { 
+  constructor(props){ 
     super(props);
     this.state = {
       email: '',
       password: '',
-      success: true,
+      success: true,  
       error: ''
     }
   }
@@ -18,19 +18,19 @@ class Login extends Component {
     });
     console.log(event.target.value);
   }
-  onHandlePasswordInput = (event) => {
+  onHandlePasswordInput = (event) => {  
     this.setState({
       password: event.target.value
-    });
-    console.log(event.target.value);
+    });  
+    console.log(event.target.value); 
   }
 
   onLoginSubmit = (event) => {
-    event.preventDefault();
-    console.log('submit form');
-    const formData = new FormData();
-    formData.append('email', this.state.email);
-    formData.append('password', this.state.password);
+    event.preventDefault();  
+    console.log('submit form');  
+    const formData = new FormData();  
+    formData.append('email', this.state.email);  
+    formData.append('password', this.state.password);  
     console.log('response for login');
    
     axios.post("http://localhost:8000/api/user/login", { email: this.state.email, password: this.state.password})
@@ -39,7 +39,10 @@ class Login extends Component {
         this.setState({
           success: true
         });
+        localStorage.setItem("token", response.data.token);
+        console.log("Yap");
         console.log(response.data.message);
+        console.log(localStorage.getItem("token"));
       })
       .catch(error =>{
         this.setState({
@@ -49,7 +52,7 @@ class Login extends Component {
       });
   }
   
-  render(){
+  render(){  
     return (
       <div className="container-fluid">
         <ul className="dropdown-menu dropdown-menu-right mt-2">
@@ -63,7 +66,7 @@ class Login extends Component {
                 <input 
                   id="emailInput" 
                   placeholder="Email" 
-                  className="form-control form-control-sm" 
+                  className="form-control form-control-sm"  
                   type="email" 
                   required
                   value={this.state.email}
@@ -82,14 +85,14 @@ class Login extends Component {
                 />
               </div>
               <div>
-                {this.state.success? "":<p style={{color:"red"}}>The email or password not valid</p>}
+                {this.state.success? "":<p style={{color:"red"}}>email or password not valid</p>}
               </div>
               
             
               <div className="form-group">
                 <button 
                   type="submit" 
-                  className="btn btn-primary btn-block"
+                  className="btn btn-primary btn-block" 
                   >
                   Login
                 </button>

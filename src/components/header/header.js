@@ -3,17 +3,30 @@ import Login from '../user/login';
 
 class Header extends Component{
   constructor(props){
-    super(props);
+    super(props)
+    this.state = {
+      isLogin: false
+    }
+    this.changeLoginStatus = this.changeLoginStatus.bind(this);
   }
-  state = {
-    isLogin: false
+  componentWillMount(){
+    if(localStorage.getItem("token") != null){
+      this.changeLoginStatus();
+    }
   }
-  onLogChange(){
-    console.log("log changed");
+  changeLoginStatus(){
     this.setState({
       isLogin : !this.state.isLogin
     });
+    
   }
+  
+  onLogChange(){
+    console.log("log changed");
+    this.changeLoginStatus();
+    localStorage.removeItem("token");
+  }
+  
   render(){
     return(
       <Fragment>
