@@ -50,7 +50,7 @@ class Header extends Component{
                       Tour
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item" href="/">Take a Tour</a>
+                      <a class="dropdown-item" href="/take-a-tour">Take a Tour</a>
                       <a class="dropdown-item" href="/">Tour Details</a>
                       <a class="dropdown-item" href="/">Custom Tour</a>
                       </div>
