@@ -1,5 +1,5 @@
 .wrapper{
-  background-image: url("../../upload/image/bg-searchbar.jpg");
+  background-image: url("../../upload/image/search-bar.jpg");
   
 }
 div nav a{
@@ -16,4 +16,15 @@ div nav a{
 #abar:hover{
   background-color: rgb(31, 97, 136);
   color: white;
+}
+#noPadding{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.inputStyle{
+  min-width: 100%;
+  min-height: 35px;
+
+  
 }
