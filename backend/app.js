@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const userRouter = require('./routes/user'); 
-const placeRouter = require('./routes/place');
+const placeRouter = require('./routes/place'); 
 
 const mongoose = require('mongoose');
 const url = 'mongodb+srv://tyro-travel-and-tour:'+
@@ -20,8 +20,9 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true,useCreat
   .then(() => {
     console.log('Database connected');
     })
-  .catch(() => {
+  .catch((err) => {
     console.log('Connection failed');
+    console.log(err);
 });
 
 app.use((req, res, next) => {

@@ -34,10 +34,10 @@ class Header extends Component{
           <div className="container">
               <a className="navbar-brand" href="/">Travel&Tour</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                  <ul class="navbar-nav">
+                <ul class="navbar-nav">
                   <li class="nav-item">
                       <a class="nav-link" href="/">Home</a>
                   </li>
@@ -64,7 +64,7 @@ class Header extends Component{
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                   </form>
                   </li>
-                  </ul>
+                </ul>
               </div>
               <div style={{ paddingTop:"fixed", marginLeft:"5px"}}>
                 {
