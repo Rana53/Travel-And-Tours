@@ -1,10 +1,11 @@
+'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
 const userRouter = require('./routes/user'); 
 const placeRouter = require('./routes/place'); 
-
+const eventRouter = require('./routes/event');
 const mongoose = require('mongoose');
 const url = 'mongodb+srv://tyro-travel-and-tour:'+
               process.env.MONGO_ATLAS_PW +
@@ -22,7 +23,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true,useCreat
     })
   .catch((err) => {
     console.log('Connection failed');
-    console.log(err);
+    console.log("Error Message", err);
 });
 
 app.use((req, res, next) => {
@@ -39,4 +40,6 @@ app.use((req, res, next) => {
 });
 app.use('/api/place', placeRouter);
 app.use('/api/user', userRouter);
+app.use('/api/event', eventRouter);
+
 module.exports = app;

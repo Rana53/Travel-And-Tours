@@ -9,6 +9,9 @@ import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
 import Popper from 'popper.js';
 //-------------------bootstrap-------------------
+
+import 'semantic-ui-css/semantic.min.css'
+
 import 'react-mdl/extra/material.css';
 import 'react-mdl/extra/material.js';
 ReactDOM.render(<App />, document.getElementById('root'));

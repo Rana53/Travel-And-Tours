@@ -25,6 +25,7 @@ class Header extends Component{
     console.log("log changed");
     this.changeLoginStatus();
     localStorage.removeItem("token");
+    localStorage.removeItem("user-name");
   }
   
   render(){
@@ -52,7 +53,7 @@ class Header extends Component{
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                       <a class="dropdown-item" href="/take-a-tour">Take a Tour</a>
                       <a class="dropdown-item" href="/">Tour Details</a>
-                      <a class="dropdown-item" href="/">Host a tour</a>
+                      <a class="dropdown-item" href="/create-tour-event">Host a tour</a>
                       </div>
                   </li>
                   <li class="nav-item">

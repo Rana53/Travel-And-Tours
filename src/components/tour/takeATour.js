@@ -1,6 +1,6 @@
 import React, {Fragment, Component} from 'react'; 
 import './takeATour.css'; 
-import bgSearchBar from '../../../src/upload/image/bg-searchbar.jpg'; 
+//import bgSearchBar from '../../../src/upload/image/bg-searchbar.jpg'; 
 import { MdFlightTakeoff, MdLocalHotel, MdArrowForward } from "react-icons/md";
 import { IoIosCar } from "react-icons/io";
 
@@ -16,7 +16,7 @@ class TakeATour extends Component{
       <div> 
         <div className="container">
           <nav className="primaryNav"> 
-                <a id="abar" href="">
+                <a id="abar" href="/">
                   <b>
                     <MdFlightTakeoff/>
                     <span>Flights</span> 

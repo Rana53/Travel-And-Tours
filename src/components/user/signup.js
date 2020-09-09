@@ -163,7 +163,7 @@ class Signup extends Component{
                 </div>
 
                 <div class="form-group">
-                    <label class="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+                    <label class="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="/">Terms of Use</a> &amp; <a href="/"></a>Privacy Policy</label>
                 </div>
                 <div class="form-group text-center">  {/*-------------------Submit Button-----------------------------*/}
                   <button  class="btn btn-success btn-md"

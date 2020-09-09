@@ -1,4 +1,4 @@
-import React,{ Fragment, Component } from 'react';
+import React,{ Component } from 'react';
 import './home.css';
 
 import ImageGallery from './imageGallery';

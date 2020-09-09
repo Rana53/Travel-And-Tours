@@ -7,7 +7,7 @@ const multer = require('multer');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const MIME_TYPE_MAP = {
+const MIME_TYPE_MAP =  {
   'image/png': 'png',
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
@@ -69,7 +69,7 @@ router.post('/signup', multer({storage}).single('image'), (req, res, next) => {
               });
         });
       }
-    })
+    }) 
     .catch(err => {
       return res.status(500).json({
         message: err
@@ -131,7 +131,7 @@ router.delete('/:userId', (req, res, next) => {
   User.findByIdAndDelete({_id: req.params.userId})
   .then(place => {
     console.log("successfully deleted user");
-    res.status(200).json(place); 
+    res.status(200).json({message: 'Done'}); 
   });
 });
 module.exports = router;
