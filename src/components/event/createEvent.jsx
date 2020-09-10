@@ -30,7 +30,7 @@ class CreateEvent extends Component {
         console.log(response.data.message);
         if(response.data.success === true){
           console.log("Success Post Event")
-          this.props.history.push('/');
+          this.props.history.push('/take-a-tour');
         }
         if(response.data.duplication){
           this.setState({

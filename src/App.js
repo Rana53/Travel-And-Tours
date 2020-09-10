@@ -9,7 +9,8 @@ import TakeATour from './components/tour/takeATour';
 import CreateEvent from './components/event/createEvent';
 import { Container } from 'react-bootstrap';
 import EventDashboard from './components/event/eventDashboard';
-
+import EventDetailedPage from './components/event/EventDetailed/EventDetailedPage'
+import User from './components/user/user';
 function App() {
   return (    
     <Fragment>
@@ -24,6 +25,8 @@ function App() {
       <Route path='/about' component={About}></Route>
       <Route path='/take-a-tour' component={EventDashboard}></Route>
       <Route path='/create-tour-event' component={CreateEvent}/>
+      <Route path='/event/:id' component={EventDetailedPage}/>
+      <Route path='/user' component={User}/>
       <div class="container-fluid footer-copyright text-center bg-light"
         style={{height: "50px", width:"100"}}
         >© 2020 Copyright:

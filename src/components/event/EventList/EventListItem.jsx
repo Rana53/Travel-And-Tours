@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import {withRouter} from 'react-router-dom';
 import { Segment, Item, Icon, List, Button } from 'semantic-ui-react'
 import EventListAttendee from './EventListAttendee'
 import { Link } from 'react-router-dom';
@@ -6,9 +7,12 @@ import image from '../../../../src/rana53.jpg'
 import {formate} from 'date-fns';
 
 class EventListItem extends Component {
+  constructor(props){
+    super(props)
+  }
 
   render() {
-    const {event, selectEvent, deleteEvent} = this.props;
+    const {event, deleteEvent} = this.props;
     console.log(event);
     return (
       <Fragment>
@@ -57,13 +61,12 @@ class EventListItem extends Component {
                   />
                 <Button
                     as={Link}
-                 //   to={`/events/${event.id}`}
+                    to={`/event/${event._id}`}
                     color="teal" 
                     floated="right" 
                     content="View" 
-                    onClick={() => selectEvent(event)}  
+                //    onClick={() => this.selectEvent(event)}  
                   />
-                  
                 </Segment>
               </Segment.Group>
               <hr/>
@@ -72,4 +75,4 @@ class EventListItem extends Component {
   }
 }
 
-export default  EventListItem;
+export default  withRouter(EventListItem);

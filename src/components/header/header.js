@@ -1,31 +1,41 @@
 import React,{ Fragment, Component } from 'react';
 import Login from '../user/login';
+import { withRouter } from 'react-router-dom';
 
 class Header extends Component{
   constructor(props){
     super(props)
     this.state = {
-      isLogin: false
+      isLogin: false,
+      userName: ''
     }
     this.changeLoginStatus = this.changeLoginStatus.bind(this);
   }
   componentWillMount(){
     if(localStorage.getItem("token") != null){
-      this.changeLoginStatus();
+      this.setState({
+        isLogin: true,
+        userName: localStorage.getItem('user-name')?localStorage.getItem('user-name'): ''
+      })      
     }
   }
   changeLoginStatus(){
     this.setState({
       isLogin : !this.state.isLogin
     });
-    
+    this.setState({
+      userName: localStorage.getItem('user-name')?localStorage.getItem('user-name'): ''
+    })
   }
   
   onLogChange(){
-    console.log("log changed");
+    const prevLogIn = this.state.isLogin;
     this.changeLoginStatus();
     localStorage.removeItem("token");
     localStorage.removeItem("user-name");
+    if(prevLogIn){
+      this.props.history.push('/');
+    }
   }
   
   render(){
@@ -53,8 +63,13 @@ class Header extends Component{
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                       <a class="dropdown-item" href="/take-a-tour">Take a Tour</a>
                       <a class="dropdown-item" href="/">Tour Details</a>
-                      <a class="dropdown-item" href="/create-tour-event">Host a tour</a>
+                      {  this.state.isLogin && 
+                          <a class="dropdown-item" href="/create-tour-event">Host a tour</a>
+                      }
                       </div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/user">User</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="/about">About</a>
@@ -67,10 +82,16 @@ class Header extends Component{
                   </li>
                 </ul>
               </div>
+              { this.state.isLogin &&
+                <p>{this.state.userName}</p>
+              }
+              
               <div style={{ paddingTop:"fixed", marginLeft:"5px"}}>
                 {
                   this.state.isLogin? 
-                  <button type="button" id="dropdownMenu1"class="btn btn-outline-success" onClick={this.onLogChange.bind(this)}>Logout</button>
+                  (
+                    <button type="button" id="dropdownMenu1"class="btn btn-outline-success" onClick={this.onLogChange.bind(this)}>Logout</button>
+                  )
                   :
                   <div>
                     <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-success dropdown-toggle">Login <span class="caret"></span></button>
@@ -88,7 +109,7 @@ class Header extends Component{
     )
   }     
 }
-export default Header;
+export default withRouter(Header);
 
 // log in in search bar https://www.codeply.com/go/XefCTinzkY/bootstrap-4-navbar-with-login-form
 // icone https://bootsnipp.com/snippets/g5QPQ

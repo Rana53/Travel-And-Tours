@@ -5,11 +5,12 @@ import EventList from './EventList/EventList'
 class EventDashboard extends Component {
   state = {
     events: [{
-        id: '',
+        _id: '',
         title: '',
         date: '',
         placeId: '',
         hostedBy:'',
+        attendee: [],
         description: '',
         error: ''
     }]
@@ -28,8 +29,11 @@ class EventDashboard extends Component {
     console.log("Delete request",id);
     const url = "http://localhost:8000/api/event/" + `${id}`
     axios.delete(url)
-      .then((event) => {
-        console.log('Delete event id is ',event._id);
+      .then((response) => {
+        const newEvent = this.state.events.filter((event) => event._id !== response.data.event._id)
+        this.setState({
+          events: newEvent
+        })
       })
   }
   render() {

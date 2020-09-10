@@ -41,9 +41,6 @@ class Login extends Component {
         });
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user-name", this.state.email);
-        console.log("Yap");
-        console.log(response.data.message);
-        console.log(localStorage.getItem("token"));
       })
       .catch(error =>{
         this.setState({
