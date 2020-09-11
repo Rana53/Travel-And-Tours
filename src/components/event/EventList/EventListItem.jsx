@@ -5,15 +5,34 @@ import EventListAttendee from './EventListAttendee'
 import { Link } from 'react-router-dom';
 import image from '../../../../src/rana53.jpg'  
 import {formate} from 'date-fns';
+import axios from 'axios'
 
 class EventListItem extends Component {
-  constructor(props){
-    super(props)
+  state = {
+    hostImage: ''
   }
-
+  stateWork = () => {
+    console.log("Component Did Mount workd", this.props.event)
+    const hostedBy  = this.props.event.hostedBy;
+    console.log("Event List Item: Attendee ",hostedBy)
+    axios.post("http://localhost:8000/api/user/get-user-by-attendee",{email: hostedBy})
+      .then(res =>{
+        console.log("result",res.data.success)
+        const imagePath = res.data.user.imagePath
+        const img ="http://localhost:8000/" + imagePath.slice(15);
+        console.log("Life ",img) 
+        this.setState({
+           hostImage: img
+         })
+      })
+  }
   render() {
     const {event, deleteEvent} = this.props;
-    console.log(event);
+    const {hostedBy } = this.props.event;
+    this.stateWork();
+    console.log("Work",this.props.event)
+    //console.log("Event List Item: Attendee ",hostedBy)
+   // console.log(event);
     return (
       <Fragment>
              <Segment.Group>
@@ -23,7 +42,8 @@ class EventListItem extends Component {
                       <Item.Image 
                         size="tiny" 
                         circular  
-                        src={image}/>
+                        src={this.state.hostImage}/>
+                        {console.log("Host image inside jsx",this.state.hostImage)}
                       <Item.Content>
                         <Item.Header >{event.title}</Item.Header>
                         <Item.Description>
@@ -42,12 +62,11 @@ class EventListItem extends Component {
                 <Segment secondary>
                   <List horizontal>
                     {
-                      event.attendees &&
-                      event.attendees.map( attendee => (
-                        <EventListAttendee key={attendee.id} attendee={attendee}/>
+                      event.attendee &&
+                      event.attendee.map( attende => (
+                        <EventListAttendee key={attende._id} attendee={attende}/>
                       ))
                     }
-                    
                   </List>
                 </Segment>
                 <Segment clearing>

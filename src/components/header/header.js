@@ -1,6 +1,7 @@
 import React,{ Fragment, Component } from 'react';
 import Login from '../user/login';
 import { withRouter } from 'react-router-dom';
+import { Image } from 'react-bootstrap';
 
 class Header extends Component{
   constructor(props){

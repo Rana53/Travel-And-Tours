@@ -62,7 +62,10 @@ router.post('', upload.array('photos',10),(req, res, next) => {
     });
   });
 });                                                       
-      
+router.get('/:id', (req, res, next) =>{
+  const id = req.params.id;
+  
+})      
 router.patch("/:placeId", (req, res, next) => {
   const id = req.params.placeId;
   const updateOps = {};

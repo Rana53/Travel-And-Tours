@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { Segment, Item, Label } from 'semantic-ui-react'
 
 const EventDetailedSidebar = ({attendees}) => {
+  console.log('atende size', attendees)
   const isHost = false; 
   return (
     <Fragment>
@@ -13,14 +14,14 @@ const EventDetailedSidebar = ({attendees}) => {
         inverted
         color='teal'
         >
-        2 People Going
+        People Going
         </Segment>
         <Segment attached>
         <Item.Group divided>
         {
           attendees && 
-          attendees.map((attendee) => (
-            <Item key={attendee.id}style={{ position: 'relative' }}>
+          attendees.map((attendee,i) => (
+            <Item key={i}style={{ position: 'relative' }}>
             { isHost && 
               <Label
                 style={{ position: 'absolute' }}
@@ -32,7 +33,7 @@ const EventDetailedSidebar = ({attendees}) => {
             }
             <Item.Image size='tiny' src={attendee.photoURL} />
             <Item.Content verticalAlign='middle'>
-                <Item.Header as='h3'>{attendee.name}</Item.Header>
+                <Item.Header as='h3'>{attendee}</Item.Header>
             </Item.Content>
             </Item>
           ))     

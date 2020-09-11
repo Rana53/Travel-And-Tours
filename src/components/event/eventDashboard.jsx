@@ -14,6 +14,7 @@ class EventDashboard extends Component {
         description: '',
         error: ''
     }]
+
   }
   
   componentWillMount() {

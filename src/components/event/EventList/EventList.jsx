@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import EventListItem from './EventListItem'
-
+import axios from 'axios'
 class EventList extends Component {
-  render() {
+ 
+  render() { 
     const { events, deleteEvent} = this.props;
-    console.log(this.props);
+    //console.log(this.props);
     return (
       <Fragment>
        { events && 

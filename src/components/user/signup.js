@@ -41,9 +41,6 @@ class Signup extends Component{
 
     axios.post(`http://localhost:8000/api/user/signup`,formData)
       .then(response => { 
-        console.log('After request response');
-        console.log("done\n" + response.data.message);
-        console.log('Data');
         console.log(response.data.user);
         if(response.data.message === "Mail exist"){
           this.setState({
@@ -55,7 +52,7 @@ class Signup extends Component{
             isCreated: true
           });
           document.getElementById("form-id").reset();
-
+          this.props.history.push('/');
         } else {
         
         }

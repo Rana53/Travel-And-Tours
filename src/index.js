@@ -14,4 +14,28 @@ import 'semantic-ui-css/semantic.min.css'
 
 import 'react-mdl/extra/material.css';
 import 'react-mdl/extra/material.js';
-ReactDOM.render(<App />, document.getElementById('root'));
+
+import { BrowserRouter } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
+
+const rootEl = document.getElementById('root');
+
+let render = () =>{
+    ReactDOM.render(
+      <BrowserRouter>
+        <ScrollToTop>
+          <App/>
+        </ScrollToTop>
+      </BrowserRouter>  
+    , rootEl);  
+  }
+  
+  if (module.hot) {
+    module.hot.accept('./App', () => {
+      setTimeout(render);
+    })
+  }
+  
+  render();
+  
+//ReactDOM.render(<App />, document.getElementById('root'));

@@ -13,7 +13,8 @@ class EventDetailedPage extends Component {
   }
   state = {
     id: this.props.match.params.id,
-    event: { }
+    event: { },
+    placeObject: {}
   }
   componentDidMount(){
     const url = "http://localhost:8000/api/event/" + `${this.state.id}`
@@ -29,17 +30,30 @@ class EventDetailedPage extends Component {
         return err;
       });
   }
+  onAddAttendee = (attende) => {
+    console.log("Update attendee work start")
+    const updateEvent = this.state.event;
+    if(updateEvent.attendee.indexOf(attende) === -1){
+      updateEvent.push(attende)
+    }
+    this.setState({
+      event: updateEvent
+    })
+    console.log("Update attendee work end");
+  }
   render(){
     const {event} = this.state;
     return (
       <Grid>
         <Grid.Column width={10}>
-           <EventDetailedHeader event={event}/>
+          <EventDetailedHeader
+           onAddAttendee={this.onAddAttendee} 
+           event={event}/>
           <EventDetailedInfo event={event}/>
           <EventDetailedChat/> 
         </Grid.Column>
         <Grid.Column width={6}>
-          {/*<EventDetailedSidebar attendees={event.attendees}/> */}
+          <EventDetailedSidebar attendees={event.attendee}/>
         </Grid.Column>
       </Grid>
     )

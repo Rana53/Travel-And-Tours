@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter, Route} from 'react-router-dom';
+import { Route} from 'react-router-dom';
 
 import Header from './components/header/header';
 import Home from './components/home/home';
@@ -15,7 +15,7 @@ function App() {
   return (    
     <Fragment>
       <Container>
-    <BrowserRouter> 
+    
       <header>
         <Header/>
       </header>
@@ -32,7 +32,7 @@ function App() {
         >© 2020 Copyright:
         <a href="https://travelandtour.com/">TravelAndTour.com</a>
       </div>
-    </BrowserRouter>
+    
     </Container>
     </Fragment>
   );

@@ -16,18 +16,24 @@ const eventImageTextStyle = {
     color: 'white'
 };
 
-const EventDetailedHeader= ({event}) => {
+const EventDetailedHeader= ({event,onAddAttendee}) => {
   const login = localStorage.getItem('token') ? true: false;
   const userName = localStorage.getItem('user-name');
   
   const onJoinRequest = () => {
     const newEvent = event;
+    if(newEvent.attendee.indexOf(userName) !== -1){
+      console.log('return statement from found attendee')
+      return;
+    }
+    console.log('not found')
     newEvent.attendee.push(userName)
     event = newEvent
     axios.patch("http://localhost:8000/api/event", {updateEvent:newEvent})
       .then((response) => {
-        console.log(response.data.message)
+        console.log("response message ",response.data.message)
       })
+      onAddAttendee(userName)
   }
   const onUpdateEvent = () => {
 
@@ -64,11 +70,11 @@ const EventDetailedHeader= ({event}) => {
         }
         {
           login && userName === event.hostedBy &&
-          <Button color="teal" onClick={onUpdateEvent}>UPDATE THIS EVENT</Button>
-        }
-        <Button as={Link} to={`/manage/${event.id}`} color="orange" floated="right">
+          <Button as={Link} to={`/manage/${event.id}`} color="orange" floated="right">
           Manage Event
-        </Button>
+          </Button>
+        }
+        
     </Segment>
     </Segment.Group>
   )

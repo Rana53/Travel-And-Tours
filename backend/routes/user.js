@@ -7,7 +7,7 @@ const multer = require('multer');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const MIME_TYPE_MAP =  {
+const MIME_TYPE_MAP =  { 
   'image/png': 'png',
   'image/jpeg': 'jpg',
   'image/jpg': 'jpg'
@@ -67,12 +67,12 @@ router.post('/signup', multer({storage}).single('image'), (req, res, next) => {
                   message: err
                 });
               });
-        });
-      }
+        }); 
+      } 
     }) 
-    .catch(err => {
-      return res.status(500).json({
-        message: err
+    .catch(err => { 
+      return res.status(500).json({ 
+        message: err 
       });
     });
 });
@@ -82,15 +82,15 @@ router.post('/login', (req, res, next) => {
   console.log(req.body.email);
   let fetchUser;
   User.findOne({ email: req.body.email.toString()})
-    .then(user => {
+    .then(user => { 
       if(!user){
         console.log("use not find");
         throw new Error("User profile not found");
       }
       fetchUser = user;
       return bcrypt.compare(req.body.password, user.password);
-    })
-      .then(result =>{
+    }) 
+      .then(result => { 
         if(!result){
           throw new Error("Password not match with user");
         }
@@ -126,7 +126,22 @@ router.get('', (req, res, next) => {
       })
     })
 });
-
+router.post('/get-user-by-attendee',(req, res, next) =>{
+  User.findOne({email: req.body.email})
+    .then(user => {
+      res.status(200).json({
+        success: true,
+        user: user
+      }); 
+    })
+    .catch(error => {
+      res.status(500).json({
+        success: 'false',
+        user: error
+      });
+    })
+  
+})
 router.delete('/:userId', (req, res, next) => {
   User.findByIdAndDelete({_id: req.params.userId})
   .then(place => {
