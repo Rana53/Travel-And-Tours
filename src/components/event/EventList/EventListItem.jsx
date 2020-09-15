@@ -3,14 +3,13 @@ import {withRouter} from 'react-router-dom';
 import { Segment, Item, Icon, List, Button } from 'semantic-ui-react'
 import EventListAttendee from './EventListAttendee'
 import { Link } from 'react-router-dom';
-import image from '../../../../src/rana53.jpg'  
-import {formate} from 'date-fns';
 import axios from 'axios'
 
 class EventListItem extends Component {
   state = {
     hostImage: ''
   }
+
   stateWork = () => {
     console.log("Component Did Mount workd", this.props.event)
     const hostedBy  = this.props.event.hostedBy;
@@ -28,11 +27,10 @@ class EventListItem extends Component {
   }
   render() {
     const {event, deleteEvent} = this.props;
-    const {hostedBy } = this.props.event;
-    this.stateWork();
-    console.log("Work",this.props.event)
-    //console.log("Event List Item: Attendee ",hostedBy)
-   // console.log(event);
+    
+    if(this.props.event.hostedBy && !this.state.hostImage){
+      this.stateWork()
+    }
     return (
       <Fragment>
              <Segment.Group>

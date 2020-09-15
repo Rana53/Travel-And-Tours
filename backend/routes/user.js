@@ -51,7 +51,6 @@ router.post('/signup', multer({storage}).single('image'), (req, res, next) => {
                 last: req.body.lastName
               },
               imagePath : (typeof req.file == "undefined") ? null : req.file.path,
-              //imagePath: req.file.path,
               contactNumber: req.body.contactNumber,
               address: req.body.address
             });
@@ -127,8 +126,11 @@ router.get('', (req, res, next) => {
     })
 });
 router.post('/get-user-by-attendee',(req, res, next) =>{
+  console.log('User Come', req.body.email)
+  
   User.findOne({email: req.body.email})
     .then(user => {
+      console.log(user.imagePath)
       res.status(200).json({
         success: true,
         user: user

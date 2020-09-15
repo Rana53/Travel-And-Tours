@@ -64,7 +64,13 @@ router.post('', upload.array('photos',10),(req, res, next) => {
 });                                                       
 router.get('/:id', (req, res, next) =>{
   const id = req.params.id;
-  
+  Place.findById({_id: id})
+    .then((place) => {
+      res.status(201).json({
+        message: 'All Places Document',
+        places: place
+      });
+    })
 })      
 router.patch("/:placeId", (req, res, next) => {
   const id = req.params.placeId;

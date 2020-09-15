@@ -16,22 +16,32 @@ class EventDetailedPage extends Component {
     event: { },
     placeObject: {}
   }
+  
   componentDidMount(){
     const url = "http://localhost:8000/api/event/" + `${this.state.id}`
     axios.get(url)
       .then( (response) => {
-        console.log("SUCCESS");
+        console.log("SUCCESS -> EventDetailPage");
         this.setState({
           event: response.data.event
         })
+        this.getPlaceObject()
       })
       .catch(err => {
         console.log("FALSE");
         return err;
       });
   }
+  getPlaceObject = () => {
+    console.log("Inside get place id", this.state.event.placeId)
+    axios.get(`http://localhost:8000/api/place/${this.state.event.placeId}`)
+      .then(response => {
+        this.setState({
+          placeObject: response.data.place
+        })
+      })
+  }
   onAddAttendee = (attende) => {
-    console.log("Update attendee work start")
     const updateEvent = this.state.event;
     if(updateEvent.attendee.indexOf(attende) === -1){
       updateEvent.push(attende)
@@ -39,7 +49,6 @@ class EventDetailedPage extends Component {
     this.setState({
       event: updateEvent
     })
-    console.log("Update attendee work end");
   }
   render(){
     const {event} = this.state;
